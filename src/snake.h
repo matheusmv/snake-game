@@ -3,6 +3,7 @@
 
 #include "game.h"
 #include "color.h"
+#include "food.h"
 
 void spawn_snake(Game *game);
 void draw_snake(Game *game);

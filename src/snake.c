@@ -70,13 +70,19 @@ void move_snake(Game *game)
         game->snake[0].w = CELL_WIDTH;
         game->snake[0].h = CELL_HEIGHT;
 
-        for (int i = 5; i < sizeof(game->snake) / sizeof(game->snake[0]); i++) {
-                if (game->snake[i].w == 0) {
-                        game->snake[i - 1].x = 0;
-                        game->snake[i - 1].y = 0;
-                        game->snake[i - 1].w = 0;
-                        game->snake[i - 1].h = 0;
-                        break;
+        if (game->food.x == game->snake[0].x && game->food.y == game->snake[0].y) {
+                spawn_food(game);
+                game->score++;
+                display_score(game);
+        } else {
+                for (int i = 5; i < sizeof(game->snake) / sizeof(game->snake[0]); i++) {
+                        if (game->snake[i].w == 0) {
+                                game->snake[i - 1].x = 0;
+                                game->snake[i - 1].y = 0;
+                                game->snake[i - 1].w = 0;
+                                game->snake[i - 1].h = 0;
+                                break;
+                        }
                 }
         }
 

@@ -47,3 +47,10 @@ void terminate(Game *game, int exit_code)
 
         exit(exit_code);
 }
+
+void display_score(Game *game)
+{
+        char buffer[20];
+        snprintf(buffer, 20, "Score: %d", game->score);
+        SDL_SetWindowTitle(game->window, buffer);
+}

@@ -37,9 +37,11 @@ typedef struct {
         int dy;
         bool game_over;
         SDL_Rect food;
+        int score;
 } Game;
 
 void initialize(Game *game);
 void terminate(Game *game, int exit_code);
+void display_score(Game *game);
 
 #endif
