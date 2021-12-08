@@ -1,6 +1,6 @@
 CC = gcc
 
-OBJS = src/main.c
+OBJS = src/*.c
 
 COMPILER_FLAGS = -pedantic-errors \
 				-Wall \
