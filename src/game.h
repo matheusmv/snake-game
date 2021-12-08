@@ -36,6 +36,7 @@ typedef struct {
         int dx;
         int dy;
         bool game_over;
+        SDL_Rect food;
 } Game;
 
 void initialize(Game *game);
