@@ -1,7 +1,7 @@
 #ifndef _COLOR_H
 #define _COLOR_H
 
-typedef enum color { GRAY } Color;
+typedef enum color { GRAY, GREEN, BLACK } Color;
 
 typedef struct colorRGBA {
     Color code;

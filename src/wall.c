@@ -1,6 +1,6 @@
 #include "wall.h"
 
-void draw_wall(Game *game, const int screen_width, const int screen_height, const int wall_thickness)
+void draw_wall(Game *game)
 {
         ColorRGBA gray = get_color(GRAY);
         SDL_SetRenderDrawColor(game->renderer, gray.R, gray.G, gray.B, gray.A);
@@ -8,24 +8,24 @@ void draw_wall(Game *game, const int screen_width, const int screen_height, cons
         SDL_Rect block = {
                 .x = 0,
                 .y = 0,
-                .w = wall_thickness,
-                .h = screen_height
+                .w = WALL_THICKNESS,
+                .h = SCREEN_HEIGHT
         };
 
-        // left wall
+        /* left wall */
         SDL_RenderFillRect(game->renderer, &block);
 
-        // right wall
-        block.x = screen_width - wall_thickness;
+        /* right wall */
+        block.x = SCREEN_WIDTH - WALL_THICKNESS;
         SDL_RenderFillRect(game->renderer, &block);
 
-        // top wall
+        /* top wall */
         block.x = 0;
-        block.w = screen_width;
-        block.h = wall_thickness;
+        block.w = SCREEN_WIDTH;
+        block.h = WALL_THICKNESS;
         SDL_RenderFillRect(game->renderer, &block);
 
-        // bottom wall
-        block.y = screen_height - wall_thickness;
+        /* bottom wall */
+        block.y = SCREEN_HEIGHT - WALL_THICKNESS;
         SDL_RenderFillRect(game->renderer, &block);
 }

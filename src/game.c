@@ -1,6 +1,6 @@
 #include "game.h"
 
-void initialize(Game *game, const int screen_width, const int screen_height)
+void initialize(Game *game)
 {
         if (SDL_Init(SDL_INIT_VIDEO) < 0) {
                 char *err_msg = "error: failed to initialize SDL: %s\n";
@@ -12,14 +12,14 @@ void initialize(Game *game, const int screen_width, const int screen_height)
                 "Score: 0",
                 SDL_WINDOWPOS_UNDEFINED,
                 SDL_WINDOWPOS_UNDEFINED,
-                screen_width,
-                screen_height,
+                SCREEN_WIDTH,
+                SCREEN_HEIGHT,
                 SDL_WINDOW_SHOWN
         );
 
         if (!game->window) {
                 char *err_msg = "error: failed to open %d x %d window: %s\n";
-                fprintf(stderr, err_msg, screen_width, screen_height, SDL_GetError());
+                fprintf(stderr, err_msg, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_GetError());
                 terminate(game, EXIT_FAILURE);
         }
 

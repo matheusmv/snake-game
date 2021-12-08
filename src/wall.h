@@ -4,6 +4,6 @@
 #include "game.h"
 #include "color.h"
 
-void draw_wall(Game *game, const int screen_width, const int screen_height, const int wall_thickness);
+void draw_wall(Game *game);
 
 #endif
