@@ -4,7 +4,7 @@
 #include "snake.h"
 
 Game game = {
-        .running = 1,
+        .running = true,
         .dx = CELL_WIDTH,
         .dy = 0
 };
@@ -16,7 +16,9 @@ int main(void)
         spawn_snake(&game);
 
         while (game.running) {
-                SDL_SetRenderDrawColor(game.renderer, 0, 0, 0, 255);
+                ColorRGBA black = get_color(BLACK);
+
+                SDL_SetRenderDrawColor(game.renderer, black.R, black.G, black.B, black.A);
                 SDL_RenderClear(game.renderer);
 
                 handle_input(&game);

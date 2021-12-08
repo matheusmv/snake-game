@@ -26,17 +26,29 @@ void spawn_snake(Game *game)
 void draw_snake(Game *game)
 {
         ColorRGBA green = get_color(GREEN);
+        ColorRGBA red = get_color(RED);
         ColorRGBA black = get_color(BLACK);
 
-        SDL_SetRenderDrawColor(game->renderer, green.R, green.G, green.B, green.A);
+        if (game->game_over) {
+                SDL_SetRenderDrawColor(game->renderer, red.R, red.G, red.B, red.A);
+        } else {
+                SDL_SetRenderDrawColor(game->renderer, green.R, green.G, green.B, green.A);
+        }
+
         SDL_RenderFillRect(game->renderer, &game->snake[0]);
 
         for (int i = 1; i < sizeof(game->snake) / sizeof(game->snake[0]); i++) {
                 if (game->snake[i].w == 0)
                         break;
 
-                /* draw green cell */
-                SDL_SetRenderDrawColor(game->renderer, green.R, green.G, green.B, green.A);
+                if (game->game_over) {
+                        /* draw red cell */
+                        SDL_SetRenderDrawColor(game->renderer, red.R, red.G, red.B, red.A);
+                } else {
+                        /* draw green cell */
+                        SDL_SetRenderDrawColor(game->renderer, green.R, green.G, green.B, green.A);
+                }
+
                 SDL_RenderFillRect(game->renderer, &game->snake[i]);
 
                 /* create a black border around each snake body cell */
@@ -47,6 +59,9 @@ void draw_snake(Game *game)
 
 void move_snake(Game *game)
 {
+        if (game->game_over)
+                return;
+
         for (int i = sizeof(game->snake) / sizeof(game->snake[0]) - 1; i >= 0; i--)
                 game->snake[i] = game->snake[i - 1];
 
@@ -63,5 +78,46 @@ void move_snake(Game *game)
                         game->snake[i - 1].h = 0;
                         break;
                 }
+        }
+
+        handle_collisions(game);
+}
+
+void handle_collisions(Game *game)
+{
+        for (int i = 1; i < sizeof(game->snake) / sizeof(game->snake[0]); i++) {
+                /* exit loop when at the end of the active elements of the snake body */
+                if (game->snake[i].w == 0)
+                        break;
+
+                /* check the head has not run into active body elements */
+                if (game->snake[0].x == game->snake[i].x && game->snake[0].y == game->snake[i].y) {
+                        game->game_over = true;
+                        return;
+                }
+        }
+
+        /* hit left wall? */
+        if (game->snake[0].x < WALL_THICKNESS) {
+                game->game_over = true;
+                return;
+        }
+
+        /* hit right wall? */
+        if (game->snake[0].x > SCREEN_WIDTH - WALL_THICKNESS - CELL_WIDTH) {
+                game->game_over = true;
+                return;
+        }
+
+        /* hit top wall? */
+        if (game->snake[0].y < WALL_THICKNESS) {
+                game->game_over = true;
+                return;
+        }
+
+        /* hit bottoom wall? */
+        if (game->snake[0].y > SCREEN_HEIGHT - WALL_THICKNESS - CELL_HEIGHT) {
+                game->game_over = true;
+                return;
         }
 }

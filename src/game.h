@@ -31,10 +31,11 @@
 typedef struct {
         SDL_Renderer *renderer;
         SDL_Window *window;
-        int running;
+        bool running;
         SDL_Rect snake[CELL_COUNT];
         int dx;
         int dy;
+        bool game_over;
 } Game;
 
 void initialize(Game *game);
