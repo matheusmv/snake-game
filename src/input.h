@@ -4,5 +4,6 @@
 #include "game.h"
 
 void handle_input(Game *game);
+void change_direction(Game *game, SDL_KeyCode new_direction);
 
 #endif
