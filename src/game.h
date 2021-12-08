@@ -33,6 +33,8 @@ typedef struct {
         SDL_Window *window;
         int running;
         SDL_Rect snake[CELL_COUNT];
+        int dx;
+        int dy;
 } Game;
 
 void initialize(Game *game);

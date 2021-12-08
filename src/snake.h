@@ -6,5 +6,6 @@
 
 void spawn_snake(Game *game);
 void draw_snake(Game *game);
+void move_snake(Game *game);
 
 #endif

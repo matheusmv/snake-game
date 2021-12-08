@@ -4,7 +4,9 @@
 #include "snake.h"
 
 Game game = {
-        .running = 1
+        .running = 1,
+        .dx = CELL_WIDTH,
+        .dy = 0
 };
 
 int main(void)
@@ -21,6 +23,7 @@ int main(void)
 
                 draw_wall(&game);
                 draw_snake(&game);
+                move_snake(&game);
 
                 SDL_RenderPresent(game.renderer);
 
