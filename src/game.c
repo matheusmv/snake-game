@@ -1,56 +1,54 @@
+#include "color.h"
+#include "food.h"
 #include "game.h"
+#include "input.h"
+#include "screen.h"
+#include "snake.h"
+#include "wall.h"
 
-void initialize(Game *game)
+static void init_game_loop(Game *game)
 {
-        if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-                char *err_msg = "error: failed to initialize SDL: %s\n";
-                fprintf(stderr, err_msg, SDL_GetError());
-                terminate(game, EXIT_FAILURE);
-        }
+        ColorRGBA black = get_color(BLACK);
 
-        game->window = SDL_CreateWindow(
-                "Score: 0",
-                SDL_WINDOWPOS_UNDEFINED,
-                SDL_WINDOWPOS_UNDEFINED,
-                SCREEN_WIDTH,
-                SCREEN_HEIGHT,
-                SDL_WINDOW_SHOWN
-        );
+        while (game->status == PLAYING) {
+                SDL_SetRenderDrawColor(game->screen.renderer, black.R, black.G, black.B, black.A);
+                SDL_RenderClear(game->screen.renderer);
 
-        if (!game->window) {
-                char *err_msg = "error: failed to open %d x %d window: %s\n";
-                fprintf(stderr, err_msg, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_GetError());
-                terminate(game, EXIT_FAILURE);
-        }
+                handle_input(game);
 
-        SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-        game->renderer = SDL_CreateRenderer(game->window, -1, SDL_RENDERER_ACCELERATED);
+                move_snake(game);
 
-        if (!game->renderer) {
-                char *err_msg = "error: failed to create renderer: %s\n";
-                fprintf(stderr, err_msg, SDL_GetError());
-                terminate(game, EXIT_FAILURE);
+                draw_food(game);
+
+                draw_snake(game);
+
+                draw_wall(game);
+
+                SDL_RenderPresent(game->screen.renderer);
+                SDL_Delay(100);
         }
 }
 
-void terminate(Game *game, int exit_code)
+void start_game(Game *game)
 {
-        if (game->renderer) {
-                SDL_DestroyRenderer(game->renderer);
-        }
+        *game = (Game) {
+                .status = PLAYING,
+                .snake = {.dx = CELL_WIDTH, .dy = 0},
+                .food = {.cell.w = CELL_WIDTH, .cell.h = CELL_HEIGHT}
+        };
 
-        if (game->window) {
-                SDL_DestroyWindow(game->window);
-        }
+        // init screen
+        start_rendering(&game->screen);
 
-        SDL_Quit();
+        // init snake
+        spawn_snake(game);
 
-        exit(exit_code);
-}
+        // init food
+        spawn_food(game);
 
-void display_score(Game *game)
-{
-        char buffer[20];
-        snprintf(buffer, 20, "Score: %d", game->score);
-        SDL_SetWindowTitle(game->window, buffer);
+        // start rendering
+        init_game_loop(game);
+
+        // clear buffers
+        finish_rendering(&game->screen, EXIT_SUCCESS);
 }
