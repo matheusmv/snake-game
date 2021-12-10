@@ -1,12 +1,12 @@
 #ifndef _GAME_H
 #define _GAME_H
 
-#include "libs.h"
+#include "common_libs.h"
 
 /* window */
 
-#define SCREEN_WIDTH 680
-#define SCREEN_HEIGHT 400
+#define SCREEN_WIDTH 1920
+#define SCREEN_HEIGHT 1080
 
 /* game wall */
 
