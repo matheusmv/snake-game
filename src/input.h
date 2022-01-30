@@ -6,6 +6,6 @@
 #include "common_vars.h"
 
 void handle_input(Game *game);
-void change_direction(Game *game, SDL_KeyCode new_direction);
+void change_direction(Game *game, SDL_Keycode new_direction);
 
 #endif

@@ -28,7 +28,7 @@ handle_input(Game *game)
 }
 
 void
-change_direction(Game *game, SDL_KeyCode new_direction)
+change_direction(Game *game, SDL_Keycode new_direction)
 {
         bool going_up = game->snake.dy == -CELL_HEIGHT;
         bool going_down = game->snake.dy == CELL_HEIGHT;
