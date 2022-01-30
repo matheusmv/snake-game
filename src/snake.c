@@ -4,10 +4,11 @@
 #include "snake.h"
 #include "screen.h"
 
-void spawn_snake(Game *game)
+void
+spawn_snake(Game *game)
 {
         /* make all snake parts empty */
-        for (int i = 0; i < sizeof(game->snake.body) / sizeof(game->snake.body[0]); i++) {
+        for (size_t i = 0; i < sizeof(game->snake.body) / sizeof(game->snake.body[0]); i++) {
                 game->snake.body[i].x = 0;
                 game->snake.body[i].y = 0;
                 game->snake.body[i].w = 0;
@@ -27,7 +28,8 @@ void spawn_snake(Game *game)
         }
 }
 
-void draw_snake(Game *game)
+void
+draw_snake(Game *game)
 {
         ColorRGBA green = get_color(GREEN);
         ColorRGBA red = get_color(RED);
@@ -41,7 +43,7 @@ void draw_snake(Game *game)
 
         SDL_RenderFillRect(game->screen.renderer, &game->snake.body[0]);
 
-        for (int i = 1; i < sizeof(game->snake.body) / sizeof(game->snake.body[0]); i++) {
+        for (size_t i = 1; i < sizeof(game->snake.body) / sizeof(game->snake.body[0]); i++) {
                 if (game->snake.body[i].w == 0)
                         break;
 
@@ -61,12 +63,13 @@ void draw_snake(Game *game)
         }
 }
 
-void move_snake(Game *game)
+void
+move_snake(Game *game)
 {
         if (game->status == GAME_OVER)
                 return;
 
-        for (int i = sizeof(game->snake.body) / sizeof(game->snake.body[0]) - 1; i >= 0; i--)
+        for (size_t i = sizeof(game->snake.body) / sizeof(game->snake.body[0]) - 1; i > 0; i--)
                 game->snake.body[i] = game->snake.body[i - 1];
 
         game->snake.body[0].x = game->snake.body[1].x + game->snake.dx;
@@ -80,7 +83,7 @@ void move_snake(Game *game)
                 game->score++;
                 display_score(game);
         } else {
-                for (int i = 5; i < sizeof(game->snake.body) / sizeof(game->snake.body[0]); i++) {
+                for (size_t i = 5; i < sizeof(game->snake.body) / sizeof(game->snake.body[0]); i++) {
                         if (game->snake.body[i].w == 0) {
                                 game->snake.body[i - 1].x = 0;
                                 game->snake.body[i - 1].y = 0;

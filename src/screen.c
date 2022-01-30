@@ -1,6 +1,7 @@
 #include "screen.h"
 
-void start_rendering(Screen *screen)
+void
+start_rendering(Screen *screen)
 {
         if (SDL_Init(SDL_INIT_VIDEO) < 0) {
                 char *err_msg = "error: failed to initialize SDL: %s\n";
@@ -33,7 +34,8 @@ void start_rendering(Screen *screen)
         }
 }
 
-void finish_rendering(Screen *screen, int exit_code)
+void
+finish_rendering(Screen *screen, int exit_code)
 {
         if (screen->renderer)
                 SDL_DestroyRenderer(screen->renderer);
@@ -46,7 +48,8 @@ void finish_rendering(Screen *screen, int exit_code)
         exit(exit_code);
 }
 
-void display_score(Game *game)
+void
+display_score(Game *game)
 {
         char buffer[20];
         snprintf(buffer, 20, "Score: %ld", game->score);

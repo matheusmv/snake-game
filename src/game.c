@@ -6,7 +6,8 @@
 #include "snake.h"
 #include "wall.h"
 
-static void init_game_loop(Game *game)
+static void
+init_game_loop(Game *game)
 {
         ColorRGBA black = get_color(BLACK);
 
@@ -29,7 +30,8 @@ static void init_game_loop(Game *game)
         }
 }
 
-void start_game(Game *game)
+void
+start_game(Game *game)
 {
         *game = (Game) {
                 .status = PLAYING,

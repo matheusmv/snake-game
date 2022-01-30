@@ -13,28 +13,28 @@ typedef enum game_status {
 
 
 typedef struct screen {
-        SDL_Renderer    *renderer;
-        SDL_Window      *window;
+        SDL_Renderer *renderer;
+        SDL_Window   *window;
 } Screen;
 
 
 typedef struct snake {
-        SDL_Rect        body[CELL_COUNT];
-        int             dx, dy;
+        SDL_Rect body[CELL_COUNT];
+        int      dx, dy;
 } Snake;
 
 
 typedef struct food {
-        SDL_Rect        cell;
+        SDL_Rect cell;
 } Food;
 
 
 typedef struct game { 
-        Screen          screen;
-        Status          status;
-        Snake           snake;
-        Food            food;
-        uint64_t        score;
+        Screen   screen;
+        Status   status;
+        Snake    snake;
+        Food     food;
+        uint64_t score;
 } Game;
 
 #endif

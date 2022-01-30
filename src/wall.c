@@ -1,7 +1,8 @@
 #include "color.h"
 #include "wall.h"
 
-void draw_wall(Game *game)
+void
+draw_wall(Game *game)
 {
         ColorRGBA gray = get_color(GRAY);
         SDL_SetRenderDrawColor(game->screen.renderer, gray.R, gray.G, gray.B, gray.A);

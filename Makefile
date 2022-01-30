@@ -1,18 +1,23 @@
-CC = gcc
+CC := gcc
 
-OBJS = src/*.c
+CFLAGS := -pedantic-errors -Wall -Werror -Wextra -std=c11
 
-COMPILER_FLAGS = -pedantic-errors \
-				-Wall \
-				-Werror \
+DIRS := src/
 
-LINKER_FLAGS = -lSDL2main \
-				-lSDL2 \
+SRCS := $(shell find $(DIRS) -name '*.c')
 
-OBJ_NAME = snake
+LFLAGS := -lSDL2main -lSDL2
 
-all:
-	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
+BIN := snake
+
+all: CFLAGS +=-O2
+all: release
+
+debug: CFLAGS +=-O0 -ggdb
+debug: release
+
+release:
+	$(CC) $(CFLAGS) $(SRCS) -o $(BIN) $(LFLAGS)
 
 clean:
-	rm $(OBJ_NAME)
+	$(RM) $(BIN)

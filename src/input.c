@@ -1,7 +1,8 @@
 #include "input.h"
 #include "screen.h"
 
-void handle_input(Game *game)
+void
+handle_input(Game *game)
 {
         SDL_Event event;
 
@@ -26,7 +27,8 @@ void handle_input(Game *game)
         }
 }
 
-void change_direction(Game *game, SDL_KeyCode new_direction)
+void
+change_direction(Game *game, SDL_KeyCode new_direction)
 {
         bool going_up = game->snake.dy == -CELL_HEIGHT;
         bool going_down = game->snake.dy == CELL_HEIGHT;

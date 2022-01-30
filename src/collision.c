@@ -1,8 +1,9 @@
 #include "collision.h"
 
-void handle_collision(Game *game)
+void 
+handle_collision(Game *game)
 {
-        for (int i = 1; i < sizeof(game->snake.body) / sizeof(game->snake.body[0]); i++) {
+        for (size_t i = 1; i < sizeof(game->snake.body) / sizeof(game->snake.body[0]); i++) {
                 /* exit loop when at the end of the active elements of the snake body */
                 if (game->snake.body[i].w == 0)
                         break;

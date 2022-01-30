@@ -1,7 +1,8 @@
 #include "color.h"
 #include "food.h"
 
-void spawn_food(Game *game)
+void
+spawn_food(Game *game)
 {
         game->food.cell.x = (rand() % (((SCREEN_WIDTH - CELL_WIDTH - WALL_THICKNESS) / CELL_WIDTH) + 1) * CELL_WIDTH);
         game->food.cell.y = (rand() % (((SCREEN_HEIGHT - CELL_HEIGHT - WALL_THICKNESS) / CELL_HEIGHT) + 1) * CELL_HEIGHT);
@@ -12,7 +13,7 @@ void spawn_food(Game *game)
         if (game->food.cell.y < WALL_THICKNESS)
                 game->food.cell.y = WALL_THICKNESS;
 
-        for (int i = 0; i < sizeof(game->snake.body) / sizeof(game->snake.body[0]); i++) {
+        for (size_t i = 0; i < sizeof(game->snake.body) / sizeof(game->snake.body[0]); i++) {
                 if (game->snake.body[i].w == 0)
                         break;
 
@@ -24,7 +25,8 @@ void spawn_food(Game *game)
         }
 }
 
-void draw_food(Game *game)
+void
+draw_food(Game *game)
 {
         ColorRGBA red = get_color(RED);
 
